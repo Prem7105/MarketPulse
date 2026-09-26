@@ -1,0 +1,29 @@
+name: Test MarketPulse
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: marketpulse
+          POSTGRES_PASSWORD: test-only-password
+          POSTGRES_DB: marketpulse_test
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U marketpulse -d marketpulse_test"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      TEST_DATABASE_URL: postgresql+psycopg://marketpulse:test-only-password@localhost:5432/marketpulse_test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r requirements-dev.lock
+      - run: pip install --no-deps -e .
+      - run: ruff check . && black --check .
+      - run: pytest --cov=app --cov-report=term-missing --cov-report=xml
+      - run: docker compose --env-file .env.example config --quiet
+      - run: docker build -t marketpulse-test .
