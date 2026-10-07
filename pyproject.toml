@@ -24,3 +24,6 @@ line-length = 100
 [tool.mypy]
 ignore_missing_imports = true
 check_untyped_defs = true
+
+[tool.poetry]
+package-mode = false
