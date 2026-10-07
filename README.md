@@ -1,6 +1,9 @@
 # MarketPulse
 ### Quantitative Investment Research & Risk Analytics Platform
 
+[**🚀 Live Demo**](https://marketpulse-prem.streamlit.app/) · [**GitHub Repository**](https://github.com/Prem7105/MarketPulse)
+
+
 MarketPulse turns validated daily prices into reproducible asset, portfolio and strategy research. Built for explaining **data → research → risk → portfolio → decision support**, including an investment research interview. It is an independent educational project, with no affiliation or endorsement by Russell Investments.
 
 **Real provider data only in the application.** Configure `TWELVEDATA_API_KEY` in `.env`; see [real-data setup](docs/real_market_data.md). There is no synthetic fallback. API access/real-time entitlement needs your valid vendor key; it has not yet been verified.
